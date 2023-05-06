@@ -1,14 +1,23 @@
+const table = document.getElementById('table');
+
 const gameboard = (() => {
-    table = ['X', 'O', 'X', 'O', 'X', 'O', 'X', 'O', 'X'];
-    const showTable = () => {
-        for (let i = 0; i < table; i++) {
-            console.log(table[i]);
-            console.log("Hi")
-            
-        }
-    }
+    let content = ['X', 'O', 'X', 'O', 'X', 'O', 'X', 'O', 'X'];
 
     return {
-        showTable
+        content
+    }
+})();
+
+const renderContent = (() => {
+    let i = 0;
+    let text;
+    let child;
+    for (let row of table.rows){
+        for (let cell of row.cells){
+            text = document.createTextNode(gameboard.content[i]);
+            child = cell.appendChild(text);
+            cell.classList.add("mark");
+            i++;
+        }
     }
 })();
