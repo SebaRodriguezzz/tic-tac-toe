@@ -1,0 +1,21 @@
+#gameboard {
+    display: flex;
+    justify-content: center;
+}
+
+#title {
+    text-align: center;
+}
+
+table {
+    height: 500px;
+    width: 500px;
+}
+
+tr {
+    
+}
+
+td {
+    border: 1px solid black;
+}
