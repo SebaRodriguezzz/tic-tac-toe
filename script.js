@@ -80,7 +80,6 @@ const gameboard = (() => {
     }
 
     const searchWinner = (arr) => {
-        
         const searchLimit = 6;
         let result = false;
         let i = 0;
@@ -124,4 +123,15 @@ const gameboard = (() => {
     }
 })();
 
+const playerFactory = (name, mark) => {
+    const celebrate = () => console.log("Let's go! " + this.name + "won");
+    return {
+        name, 
+        mark, 
+        celebrate
+    }
+}
 
+const displayController = (() => {
+    
+})();
