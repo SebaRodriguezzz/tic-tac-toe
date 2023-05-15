@@ -1,7 +1,9 @@
 const table = document.getElementById('table');
+const resetBtn = document.getElementById('reset-table');
 
 const gameboard = (() => {
-    let content = [];
+    let content = []
+    let winner = false;
 
     const getContent = () => {
         return content;
@@ -30,10 +32,12 @@ const gameboard = (() => {
         this.appendChild(text);
         this.classList.add("mark");
         this.removeEventListener('click', placeMark);
-        checkWinner();
+        if (!winner) {
+            checkWinner();
+        }
     }
 
-    const addBoardListeners = (() => {
+    const addBoardListeners = () => {
         for (let row of table.rows){
             for (let cell of row.cells){
                 if (!cell.hasChildNodes()) {
@@ -41,7 +45,7 @@ const gameboard = (() => {
                 }
             }
         }
-    })();
+    };
 
     const addChildrenToArray = (array) => {
         for (let row of table.rows){
@@ -56,6 +60,7 @@ const gameboard = (() => {
         addChildrenToArray(children);
         if (searchWinner(children)){
             console.log("winner");
+            winner = true;
         } else if(isTableFull(children)) {
             console.log("tie");
         }
@@ -117,9 +122,27 @@ const gameboard = (() => {
         return result;
     }
 
+    const initializeGameboard = () => {
+        content = [];
+        winner = false;
+        clearTable();
+        addBoardListeners();
+    }
+
+    const clearTable = () => {
+        for (let row of table.rows){
+            for (let cell of row.cells){
+                if (cell.hasChildNodes()) {
+                    cell.removeChild(cell.firstChild);
+                }
+                cell.classList.remove("mark");
+                cell.removeEventListener('click', placeMark);
+            }
+        }
+    }
 
     return {
-        getContent
+        getContent, initializeGameboard
     }
 })();
 
@@ -133,5 +156,9 @@ const playerFactory = (name, mark) => {
 }
 
 const displayController = (() => {
+    const initialize = (() => {
+        gameboard.initializeGameboard();
+        resetBtn.addEventListener('click', gameboard.initializeGameboard);
+    })();
     
 })();
