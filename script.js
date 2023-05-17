@@ -1,6 +1,8 @@
 const table = document.getElementById('table');
 const resetBtn = document.getElementById('reset-table');
-
+const winnerDisplay = document.getElementById('winner');
+winnerDisplay.appendChild(document.createTextNode(''))
+const winnerChild = winnerDisplay.firstChild
 const gameboard = (() => {
     let content = []
     let winner = false;
@@ -59,10 +61,9 @@ const gameboard = (() => {
         let children = [];
         addChildrenToArray(children);
         if (searchWinner(children)){
-            console.log("winner");
             winner = true;
         } else if(isTableFull(children)) {
-            console.log("tie");
+            winnerChild.nodeValue = 'Tie! Play again';
         }
     }
 
@@ -99,8 +100,13 @@ const gameboard = (() => {
             if (i % 2 == 0 && i <= 2 && result == false){
                 result = checkDiagonal(arr, i);
             }
+            if (result){
+                winnerChild.nodeValue = 'The winner is ' + arr[i][0].nodeValue;
+            }
             i++;
         }
+
+        
 
         return result;
     }
@@ -127,6 +133,8 @@ const gameboard = (() => {
         winner = false;
         clearTable();
         addBoardListeners();
+        winnerChild.nodeValue = '';
+        
     }
 
     const clearTable = () => {
@@ -139,21 +147,13 @@ const gameboard = (() => {
                 cell.removeEventListener('click', placeMark);
             }
         }
+        
     }
 
     return {
-        getContent, initializeGameboard
+        initializeGameboard
     }
 })();
-
-const playerFactory = (name, mark) => {
-    const celebrate = () => console.log("Let's go! " + this.name + "won");
-    return {
-        name, 
-        mark, 
-        celebrate
-    }
-}
 
 const displayController = (() => {
     const initialize = (() => {

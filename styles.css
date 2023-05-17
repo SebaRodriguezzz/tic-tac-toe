@@ -66,3 +66,13 @@ td:hover {
 #reset-table:active {
     background-color: rgb(238, 238, 238);
 }
+
+.winner-cell {
+    background-color: green;
+}
+
+#winner{
+    margin: 10px;
+    font-size: 26px;
+    font-weight: bold;
+}
